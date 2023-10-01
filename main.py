@@ -21,6 +21,9 @@ class HandDetector:
         self.tipIds = [4, 8, 12, 16, 20]
 
     def findHands(self, img, draw=True):
+        if img is None:
+            return None  # Return None if the input image is empty
+
         imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         self.results = self.hands.process(imgRGB)
 
