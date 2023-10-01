@@ -8,12 +8,12 @@ class HandDetector:
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
         self.mode = mode
         self.maxHands = maxHands
-        self.detectionCon = float(detectionCon)  # Ensure detectionCon is a float
-        self.trackCon = float(trackCon)  # Ensure trackCon is a float
+        self.detectionCon = float(detectionCon)  # Valida se a variavel é do tipo float
+        self.trackCon = float(trackCon)  # Valida se a variavel é do tipo float
 
         self.mpHands = mp.solutions.hands
         self.hands = self.mpHands.Hands(
-            static_image_mode=False,  # Set to False for real-time video
+            static_image_mode=False,  # setar para falso para video em tempo real
             max_num_hands=self.maxHands,
             min_detection_confidence=self.detectionCon,
             min_tracking_confidence=self.trackCon)
@@ -85,15 +85,15 @@ class HandDetector:
 
 def main():
     pTime = 0
-    cap = cv2.VideoCapture(0)  # Use 0 for the default camera, or change it to the desired camera index
+    cap = cv2.VideoCapture(0)  # Usar 0 por padrão
     detector = HandDetector()
     while True:
         success, img = cap.read()
         img = detector.findHands(img)
         lmList = detector.findPosition(img)
 
-        if len(lmList) >= 5:  # Check if lmList has at least 5 elements
-            print(lmList[4])  # Accessing the 5th element
+        if len(lmList) >= 5:  # Verifica se a lista tem ao menos 5 elementos
+            print(lmList[4])  # Acessa o quinto elemento
 
         cTime = time.time()
         fps = 1 / (cTime - pTime)
@@ -103,7 +103,7 @@ def main():
                     (255, 0, 255), 3)
 
         cv2.imshow("Image", img)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord('q'): # apertar essa tecla para parar o streaming
             break
 
     cap.release()
